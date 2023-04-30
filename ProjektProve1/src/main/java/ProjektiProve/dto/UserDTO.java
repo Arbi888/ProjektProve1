@@ -24,7 +24,7 @@ public class UserDTO {
     @NotNull
     private String surname;
     @NotNull
-     @Email
+    @Email
     private String email;
     @JsonIgnore
     private String password;

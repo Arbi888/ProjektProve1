@@ -22,11 +22,11 @@ public class PassengerServiceImp implements PassengerService {
     private final PassengerRepositoty passengerRepositoty;
 
     @Override
-    public PassengerDTO registerPassenger(PassengerDTO req) {
+    public PassengerDTO registerPassenger(PassengerDTO req ) {
         Passenger p = PassengerMapper.toEntity(req);
         if (p.getId()==null)
             p = passengerRepositoty.save(p);
-        return null;
+        return PassengerMapper.toDTO(p);
     }
 
     @Override
@@ -51,5 +51,14 @@ public class PassengerServiceImp implements PassengerService {
                 .map(PassengerMapper::toDTO)
                 .collect(Collectors.toList());
 
+    }
+
+    @Override
+    public Void deltePassengerById(Integer id) {
+        Passenger p = passengerRepositoty.findById(id)
+                .orElseThrow(()-> new ResourceNotFountException(
+                        String.format("passenger with id %s not found",id)));
+        passengerRepositoty.delete(p);
+        return null;
     }
 }

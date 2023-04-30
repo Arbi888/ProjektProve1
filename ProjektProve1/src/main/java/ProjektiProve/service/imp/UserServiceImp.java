@@ -48,7 +48,7 @@ public class UserServiceImp implements UserService {
                 .orElseThrow(()-> new ResourceNotFountException(String
                         .format("user with id %s not found",id)));
         userRepository.delete(u);
-return null;
+     return null;
     }
 
 

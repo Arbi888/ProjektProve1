@@ -8,9 +8,11 @@ public class ShipMapper {
 
 
     public static ShipDTO toDTO(Ship sh){
+
         return ShipDTO.builder()
                 .id(sh.getId())
                 .name(sh.getName())
+                .destination(sh.getDestination())
                 .build();
     }
 
@@ -18,6 +20,7 @@ public class ShipMapper {
     public static Ship toEntity(ShipDTO sh){
       Ship build = Ship.builder()
               .name(sh.getName())
+              .destination(sh.getDestination())
               .build();
       return build;
     }

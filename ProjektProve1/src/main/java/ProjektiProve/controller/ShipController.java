@@ -2,14 +2,11 @@ package ProjektiProve.controller;
 
 
 import ProjektiProve.dto.ShipDTO;
-import ProjektiProve.dto.UserDTO;
-import ProjektiProve.dto.UserUpdateDTO;
 import ProjektiProve.mapper.ShipMapper;
-import ProjektiProve.mapper.UserMapper;
 import ProjektiProve.model.Ship;
-import ProjektiProve.model.User;
 import ProjektiProve.service.ShipService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,18 +17,18 @@ import javax.validation.Valid;
 @RequestMapping("/ships")
 public class ShipController {
 
+    @Autowired
     private ShipService shipService;
 
-    @PostMapping("/register/{shipid}")
-    public ResponseEntity<ShipDTO> registerShip(@PathVariable Integer shipId,
-                                                @Valid @RequestBody ShipDTO sh){
+    @PostMapping("/register")
+    public ResponseEntity<ShipDTO> registerShip(@RequestBody @Valid ShipDTO sh){
         return ResponseEntity.ok(shipService.registerShip(sh));
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<ShipDTO> updateShip (@PathVariable Integer shipid ,
+    public ResponseEntity<ShipDTO> updateShip (@PathVariable Integer id ,
                                                @Valid @RequestBody ShipDTO req){
-      ShipDTO sh = shipService.updateShip(shipid,req);
+      ShipDTO sh = shipService.updateShip(id,req);
         return ResponseEntity.ok(sh);
     }
 
@@ -41,5 +38,9 @@ public class ShipController {
         return ResponseEntity.ok(ShipMapper.toDTO(sh));
     }
 
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> deleteshipbyid(@PathVariable Integer id){
+        return ResponseEntity.ok(shipService.deleteshipbyid(id));
+    }
 
 }

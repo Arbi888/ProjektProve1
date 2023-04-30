@@ -15,6 +15,7 @@ public interface ShipService {
 
     ShipDTO updateShip(Integer id, ShipDTO req);
 
+    Void deleteshipbyid(Integer id);
 
 
 

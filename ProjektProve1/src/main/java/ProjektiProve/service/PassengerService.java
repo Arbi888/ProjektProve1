@@ -1,13 +1,14 @@
 package ProjektiProve.service;
 
 import ProjektiProve.dto.PassengerDTO;
+import ProjektiProve.dto.ShipDTO;
 import ProjektiProve.model.Passenger;
 
 import java.util.List;
 
 public interface PassengerService {
 
-    PassengerDTO registerPassenger  (PassengerDTO req);
+    PassengerDTO registerPassenger  (PassengerDTO req );
 
     Passenger findById(Integer id );
 
@@ -15,6 +16,8 @@ public interface PassengerService {
 
 
     List<PassengerDTO> findALL ();
+
+    Void deltePassengerById (Integer id);
 
 
 }

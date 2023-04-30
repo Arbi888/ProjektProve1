@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.List;
 @Data
 @Builder
 @Table(name = "ships")
-public class Ship {
+public class Ship  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +24,10 @@ public class Ship {
     @Column
     private String destination;
 
+
     @OneToMany(mappedBy = "ship" , cascade = CascadeType.ALL)
     private List<Passenger> passengerList ;
+
+
+
 }

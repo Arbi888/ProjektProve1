@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Data
 public class ShipDTO {
 
-    @NotNull
+
     private Integer id ;
     @NotNull
     private String name ;

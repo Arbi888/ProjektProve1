@@ -2,10 +2,11 @@ package ProjektiProve.mapper;
 
 import ProjektiProve.dto.PassengerDTO;
 import ProjektiProve.model.Passenger;
+import ProjektiProve.model.Ship;
 
 public class PassengerMapper {
 
-    public static PassengerDTO toDTO(Passenger p ){
+    public static PassengerDTO toDTO(Passenger p){
         return PassengerDTO.builder()
                 .id(p.getId())
                 .name(p.getName())
@@ -20,6 +21,7 @@ public class PassengerMapper {
                 .name(p.getName())
                 .surname(p.getSurname())
                 .age(p.getAge())
+
                 .build();
         return build;
 

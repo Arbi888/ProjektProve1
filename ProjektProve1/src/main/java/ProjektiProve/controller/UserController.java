@@ -21,11 +21,6 @@ public class UserController {
     private UserService userService;
 
 
-    @PostMapping("/register/{userid}")
-    public ResponseEntity<UserDTO> registerUser(@PathVariable Integer UserId,
-                                               @Valid @RequestBody UserDTO u){
-        return ResponseEntity.ok(userService.registerUser(u));
-    }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<UserUpdateDTO> updateUser(@PathVariable Integer id,
@@ -40,7 +35,7 @@ public class UserController {
         return ResponseEntity.ok(UserMapper.toDTO(u));
     }
 
-    @DeleteMapping
+    @DeleteMapping("delete/{id}")
     public ResponseEntity<Void> deleteUserById(@PathVariable Integer id){
          return ResponseEntity.ok(userService.deleteUserById(id));
         }

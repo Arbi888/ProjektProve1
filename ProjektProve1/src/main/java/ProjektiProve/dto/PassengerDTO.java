@@ -21,6 +21,9 @@ public class PassengerDTO {
     private String surname;
     @NotNull
     private Integer age ;
+    @NotNull
+    private String shipid;
+
 
 
 

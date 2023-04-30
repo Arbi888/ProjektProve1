@@ -10,8 +10,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-
-
 public class ShipServiceImp implements ShipService {
 
 
@@ -38,6 +36,17 @@ public class ShipServiceImp implements ShipService {
         Ship sh = findById(id);
         sh = ShipMapper.buildUpdateShip(sh,req);
         return ShipMapper.toUpdateDto(shipRepository.save(sh));
+    }
+
+    @Override
+    public Void deleteshipbyid(Integer id) {
+        Ship sh = shipRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFountException(String
+                        .format("user with id %s not found",id)));
+        shipRepository.delete(sh);
+        return null;
+
+
     }
 
 
