@@ -2,6 +2,8 @@ package ProjektiProve.controller;
 
 
 import ProjektiProve.dto.PassengerDTO;
+import ProjektiProve.mapper.PassengerMapper;
+import ProjektiProve.model.Passenger;
 import ProjektiProve.service.PassengerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +37,14 @@ public class PassengerController {
     public ResponseEntity <List<PassengerDTO>> findALL (){
         return ResponseEntity.ok(passengerService.findALL());
     }
+
+    @GetMapping("/find/{id}")
+    public ResponseEntity<PassengerDTO> findById(@PathVariable Integer id){
+        Passenger p = passengerService.findById(id);
+        return ResponseEntity.ok(PassengerMapper.toDTO(p));
+
+    }
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deltePassengerById(@PathVariable Integer id){

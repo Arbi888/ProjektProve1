@@ -21,9 +21,11 @@ public class PassengerMapper {
                 .name(p.getName())
                 .surname(p.getSurname())
                 .age(p.getAge())
-
+                .id(p.getShipid())
+                //   .ship(p.getShipid()!=null?ShipMapper.toEntity(PassengerDTO.getShipid()):null)
                 .build();
         return build;
+
 
     }
 
@@ -33,6 +35,7 @@ public class PassengerMapper {
                 .name(p.getName())
                 .surname(p.getSurname())
                 .age(p.getAge())
+                .shipid(p.getShip().getId())
                 .build();
 
     }

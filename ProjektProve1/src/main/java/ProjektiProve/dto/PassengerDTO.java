@@ -13,16 +13,16 @@ import lombok.NoArgsConstructor;
 @Builder
 public class PassengerDTO {
 
-    @NotNull
+    //@NotNull
     private Integer id ;
-    @NotNull
+    //@NotNull
     private String name;
-    @NotNull
+    //@NotNull
     private String surname;
-    @NotNull
+    //@NotNull
     private Integer age ;
-    @NotNull
-    private String shipid;
+   // @NotNull
+    private Integer shipid;
 
 
 

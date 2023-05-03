@@ -17,9 +17,9 @@ public class ShipDTO {
 
 
     private Integer id ;
-    @NotNull
+    //@NotNull
     private String name ;
-    @NotNull
+    //@NotNull
     private String destination ;
 
 }

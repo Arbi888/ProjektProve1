@@ -9,7 +9,6 @@ public class UserMapper {
 
 
     public static UserDTO toDTO(User u ){
-
         return UserDTO.builder()
                 .id(u.getId())
                 .name(u.getName())
