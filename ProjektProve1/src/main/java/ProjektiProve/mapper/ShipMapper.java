@@ -13,6 +13,7 @@ public class ShipMapper {
                 .id(sh.getId())
                 .name(sh.getName())
                 .destination(sh.getDestination())
+
                 .build();
     }
 

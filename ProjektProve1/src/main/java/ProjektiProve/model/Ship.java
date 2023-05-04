@@ -1,9 +1,7 @@
 package ProjektiProve.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import javax.persistence.*;
 
 import java.util.List;
@@ -24,7 +22,7 @@ public class Ship  {
     @Column
     private String destination;
 
-
+    @ToString.Exclude
     @OneToMany(mappedBy = "ship" , cascade = CascadeType.ALL)
     private List<Passenger> passengerList ;
 

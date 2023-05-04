@@ -1,10 +1,7 @@
 package ProjektiProve.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 
 import javax.persistence.*;
@@ -27,8 +24,7 @@ public class Passenger {
     private String surname;
     @Column
     private Integer age ;
-
-
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "ship_id" , referencedColumnName = "id")
     private Ship ship;
