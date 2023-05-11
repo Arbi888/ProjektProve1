@@ -2,9 +2,11 @@ package ProjektiProve.model;
 
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.Collection;
 
 @Entity
@@ -28,11 +30,13 @@ public class User implements UserDetails {
     private String email;
     @Column
     private String password;
+    @Enumerated(EnumType.STRING)
+    private Role userRole;
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return Arrays.asList(new SimpleGrantedAuthority(userRole.getValue()));
     }
 
     @Override

@@ -1,16 +1,21 @@
 package ProjektiProve.auth;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NonNull;
+import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotNull;
 
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class AuthRequest {
 
-    @NonNull
+    @NotNull
     private String email ;
-    @NonNull
+    @NotNull
     private String password;
 
 }

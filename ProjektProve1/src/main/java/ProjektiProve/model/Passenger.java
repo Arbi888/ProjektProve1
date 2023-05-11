@@ -27,7 +27,8 @@ public class Passenger {
     @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "ship_id" , referencedColumnName = "id")
-    private Ship ship;
+    private Ship shipID;
+
 
 
 

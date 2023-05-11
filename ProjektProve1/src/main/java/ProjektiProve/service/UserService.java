@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public interface UserService {
 
-    UserDTO registerUser(UserDTO req);
+    UserDTO registerUser(UserDTO userDTO, String userRole);
     User findById(Integer id);
 
     UserUpdateDTO updateUser(Integer id, UserUpdateDTO req);

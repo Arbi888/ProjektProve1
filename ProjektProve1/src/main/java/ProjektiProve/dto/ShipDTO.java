@@ -1,5 +1,6 @@
 package ProjektiProve.dto;
 
+import ProjektiProve.model.Passenger;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @NoArgsConstructor
@@ -21,5 +23,6 @@ public class ShipDTO {
     private String name ;
     //@NotNull
     private String destination ;
+    private List<PassengerDTO> passengerList;
 
 }

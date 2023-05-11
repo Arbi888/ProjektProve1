@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.Email;
 import java.time.LocalDateTime;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 @Data
+
 public class UserDTO {
 
     private Integer id;
@@ -26,7 +28,6 @@ public class UserDTO {
     @NotNull
     @Email
     private String email;
-    @JsonIgnore
     private String password;
 
 

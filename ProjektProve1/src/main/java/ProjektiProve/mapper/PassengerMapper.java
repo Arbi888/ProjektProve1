@@ -12,28 +12,35 @@ public class PassengerMapper {
                 .name(p.getName())
                 .surname(p.getSurname())
                 .age(p.getAge())
-               // .shipid(p.getId())
-              //  .shipid(p.getShip().getId())
-
                 .build();
     }
 
     public static Passenger toEntity(PassengerDTO p ){
 
-        Passenger build=Passenger.builder()
+        Passenger build = Passenger.builder()
                 .name(p.getName())
                 .surname(p.getSurname())
                 .age(p.getAge())
-
-              //  .ship()
-             //   .ship(p.getShipid())
-               // .id(p.getShipid())
-
+                .shipID(p.getShip()!= null?p.getShip():null)
                 .build();
         return build;
 
 
     }
+
+    public static Passenger toAddforEntity(PassengerDTO passengerDTO, Integer shipId) {
+        return Passenger.builder()
+                .id(passengerDTO.getId())
+                .name(passengerDTO.getName())
+                .surname(passengerDTO.getSurname())
+                .age(passengerDTO.getAge())
+                .shipID(Ship.builder()
+                        .id(shipId)
+                        .build())
+                .build();
+
+    }
+
 
     public static PassengerDTO toUpdateDto (Passenger p ){
         return PassengerDTO.builder()
@@ -41,8 +48,7 @@ public class PassengerMapper {
                 .name(p.getName())
                 .surname(p.getSurname())
                 .age(p.getAge())
-
-             //   .shipid(p.getId())
+                //.shipidDTO(p.getId())
 
                 .build();
 

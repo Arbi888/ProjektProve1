@@ -22,8 +22,9 @@ public class Ship  {
     @Column
     private String destination;
 
+
     @ToString.Exclude
-    @OneToMany(mappedBy = "ship" , cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "shipID" , cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Passenger> passengerList ;
 
 

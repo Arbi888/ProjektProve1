@@ -4,12 +4,15 @@ import ProjektiProve.dto.PassengerDTO;
 import ProjektiProve.exception.ResourceNotFountException;
 import ProjektiProve.mapper.PassengerMapper;
 import ProjektiProve.model.Passenger;
+import ProjektiProve.model.Ship;
 import ProjektiProve.repository.PassengerRepositoty;
+import ProjektiProve.repository.ShipRepository;
 import ProjektiProve.service.PassengerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,14 +22,19 @@ import java.util.stream.Collectors;
 public class PassengerServiceImp implements PassengerService {
 
 
+    private final ShipRepository shipRepository;
     private final PassengerRepositoty passengerRepositoty;
 
+
+
     @Override
-    public PassengerDTO registerPassenger(PassengerDTO req ) {
-        Passenger p = PassengerMapper.toEntity(req);
-        if (p.getId()==null)
-            p = passengerRepositoty.save(p);
-        return PassengerMapper.toDTO(p);
+    public PassengerDTO registerPassenger(PassengerDTO req,Integer shipId) {
+
+        Ship a = shipRepository.findById(shipId).orElseThrow(() -> new ResourceNotFountException(String.format("Ship with id %d not found",shipId)));
+        Passenger p = PassengerMapper.toAddforEntity(req,shipId);
+       return PassengerMapper.toDTO(passengerRepositoty.save(p));
+
+
     }
 
     @Override

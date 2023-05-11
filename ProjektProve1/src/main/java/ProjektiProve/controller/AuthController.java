@@ -9,9 +9,8 @@ import ProjektiProve.auth.TokenDTO;
 import ProjektiProve.service.UserService;
 import ProjektiProve.auth.AuthRequest;
 
-import ProjektiProve.dto.UserDTO;
+
 import ProjektiProve.model.User;
-import ProjektiProve.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -30,13 +29,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(path = "/auth")
 @RequiredArgsConstructor
+@Validated
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
     private final JwtEncoder jwtEncoder;
     private final UserService userService;
 
-    @PostMapping("/login")  
+    @PostMapping("/login")
     public ResponseEntity<TokenDTO> login(@RequestBody @Valid AuthRequest request) {
         try {
             Authentication authentication =
@@ -46,7 +46,7 @@ public class AuthController {
             User user = (User) authentication.getPrincipal();
 
             Instant now = Instant.now();
-            Long expiry = 36000L;
+            Long expiry = 3600L;
 
             String scope =
                     authentication.getAuthorities().stream()
@@ -58,9 +58,8 @@ public class AuthController {
                             .issuer("ikubinfo.al")
                             .issuedAt(now)
                             .expiresAt(now.plusSeconds(expiry))
-                            .subject(String.format("%s,%s", user.getId(), user.getName()))
+                            .subject(String.format("%s,%s", user.getId(), user.getUsername()))
                             .claim("roles", scope)
-                            .audience(Arrays.asList("Audienca"))
                             .build();
 
             String token = this.jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
@@ -73,9 +72,7 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<UserDTO> registerUser(@RequestBody @Valid UserDTO u){
-        return ResponseEntity.ok(userService.registerUser(u));
-    }
-
 }
+
+
+

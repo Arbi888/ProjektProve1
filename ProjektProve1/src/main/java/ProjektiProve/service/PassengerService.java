@@ -8,7 +8,9 @@ import java.util.List;
 
 public interface PassengerService {
 
-    PassengerDTO registerPassenger  (PassengerDTO req );
+
+
+    PassengerDTO registerPassenger(PassengerDTO req,Integer shipId);
 
     Passenger findById(Integer id );
 

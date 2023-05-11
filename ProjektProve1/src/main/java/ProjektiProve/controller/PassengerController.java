@@ -21,9 +21,9 @@ public class PassengerController {
     @Autowired
     private PassengerService passengerService ;
 
-    @PostMapping("/register")
-    public ResponseEntity<PassengerDTO> registerPassenger (@RequestBody @Valid PassengerDTO p) {
-        return ResponseEntity.ok(passengerService.registerPassenger(p));
+    @PostMapping("/register/{shipId}")
+    public ResponseEntity<PassengerDTO> registerPassenger (@RequestBody @Valid PassengerDTO p,@PathVariable(name = "shipId") Integer shipId) {
+        return ResponseEntity.ok(passengerService.registerPassenger(p,shipId));
     }
 
     @PutMapping("/update/{id}")

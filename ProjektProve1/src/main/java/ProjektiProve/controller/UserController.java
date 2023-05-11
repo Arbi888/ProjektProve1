@@ -8,6 +8,7 @@ import ProjektiProve.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -15,10 +16,17 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/users")
+@Validated
 public class UserController {
 @Autowired
 
     private UserService userService;
+
+    @PostMapping("/admin/{userRole}")
+    public ResponseEntity<UserDTO> registerUser(@RequestBody  UserDTO userDTO, @PathVariable String userRole){
+        UserDTO dto = userService.registerUser(userDTO,userRole);
+        return ResponseEntity.ok(dto);
+    }
 
 
 

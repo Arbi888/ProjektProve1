@@ -1,5 +1,7 @@
 package ProjektiProve.dto;
 
+import ProjektiProve.model.Ship;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,8 +24,8 @@ public class PassengerDTO {
     //@NotNull
     private Integer age ;
     // @NotNull
-    private Integer shipid;
-
+    @JsonIgnore
+    private Ship ship;
 
 
 

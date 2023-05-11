@@ -58,15 +58,15 @@ public class SecurityConfig {
     public AuthenticationManager authenticationManager(
             HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder) throws Exception {
         return http.getSharedObject(AuthenticationManagerBuilder.class)
-                .userDetailsService(username ->  userRepo
+                .userDetailsService(username -> (UserDetails) userRepo
                         .findByEmail(username)
                         .orElseThrow(
                                 () -> new UsernameNotFoundException(format("User: %s, not found", username))))
                 .passwordEncoder(bCryptPasswordEncoder)
-                .and()
-                .authenticationEventPublisher(new CustumEventPublisher())
-                .build();
+                .and().build();
     }
+
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -84,12 +84,9 @@ public class SecurityConfig {
                                 .accessDeniedHandler(new BearerTokenAccessDeniedHandler()));
         // Set permissions on endpoints
         http.authorizeRequests()
-                // Our public endpoints
-                .antMatchers("/**")
+                .antMatchers("/auth")
                 .permitAll()
                 // Our private endpoints
-//                .anyRequest()
-//                .authenticated()
                 // Set up oauth2 resource server
                 .and()
                 .httpBasic(Customizer.withDefaults())
@@ -98,7 +95,6 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // Used by JwtAuthenticationProvider to generate JWT tokens
     @Bean
     public JwtEncoder jwtEncoder() {
         RSAKey jwk = new RSAKey.Builder(this.rsaPublicKey).privateKey(this.rsaPrivateKey).build();
@@ -106,24 +102,22 @@ public class SecurityConfig {
         return new NimbusJwtEncoder(jwks);
     }
 
-    // Used by JwtAuthenticationProvider to decode and validate JWT tokens
     @Bean
     public JwtDecoder jwtDecoder() {
         return NimbusJwtDecoder.withPublicKey(this.rsaPublicKey).build();
     }
 
-    // Extract authorities from the roles claim
     @Bean
     public JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
         jwtGrantedAuthoritiesConverter.setAuthoritiesClaimName("roles");
-        jwtGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
+        jwtGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_    ");
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
         return jwtAuthenticationConverter;
     }
 
-    // Set password encoding schema
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -142,11 +136,10 @@ public class SecurityConfig {
         return new CorsFilter(source);
     }
 
-    // Expose authentication manager bean
+
     @Bean
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
-
 }

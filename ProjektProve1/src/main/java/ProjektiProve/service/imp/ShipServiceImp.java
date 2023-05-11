@@ -19,8 +19,7 @@ public class ShipServiceImp implements ShipService {
     @Override
     public ShipDTO registerShip(ShipDTO req) {
         Ship sh = ShipMapper.toEntity(req);
-        if (sh.getId()==null)
-            sh = shipRepository.save(sh);
+            shipRepository.save(sh);
         return ShipMapper.toDTO(sh);
     }
 

@@ -4,6 +4,8 @@ import ProjektiProve.dto.ShipDTO;
 
 import ProjektiProve.model.Ship;
 
+import java.util.stream.Collectors;
+
 public class ShipMapper {
 
 
@@ -13,7 +15,7 @@ public class ShipMapper {
                 .id(sh.getId())
                 .name(sh.getName())
                 .destination(sh.getDestination())
-
+                .passengerList(sh.getPassengerList()!=null?sh.getPassengerList().stream().map(PassengerMapper::toDTO).collect(Collectors.toList()):null)
                 .build();
     }
 
@@ -22,6 +24,7 @@ public class ShipMapper {
       Ship build = Ship.builder()
               .name(sh.getName())
               .destination(sh.getDestination())
+              .passengerList(sh.getPassengerList()!=null?sh.getPassengerList().stream().map(PassengerMapper::toEntity).collect(Collectors.toList()) : null)
               .build();
       return build;
     }

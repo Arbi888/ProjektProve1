@@ -4,28 +4,37 @@ import ProjektiProve.dto.UserDTO;
 import ProjektiProve.dto.UserUpdateDTO;
 import ProjektiProve.exception.ResourceNotFountException;
 import ProjektiProve.mapper.UserMapper;
+import ProjektiProve.model.Role;
 import ProjektiProve.model.User;
 import ProjektiProve.repository.UserRepository;
 import ProjektiProve.service.UserService;
 import ch.qos.logback.core.net.SyslogOutputStream;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 
-public class UserServiceImp implements UserService {
+
+public class UserServiceImp implements  UserService, UserDetailsService {
 
      private final UserRepository userRepository;
+     private final PasswordEncoder passwordEncoder;
 
-     @Override
-     public UserDTO registerUser(UserDTO req) {
-        User u = UserMapper.toEntity(req);
-        if (u.getId()==null)
-            u = userRepository.save(u);
-         return  UserMapper.toDTO(u);
+    @Override
+    public UserDTO registerUser(UserDTO userDTO, String userRole) {
+        User u = UserMapper.toEntity(userDTO);
+        u.setUserRole(userRole != null ? Role.fromValue(userRole) : Role.CUSTOMER);
+        u.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        u = userRepository.save(u);
+        return UserMapper.toDTO(u);
     }
+
 
     @Override
     public User findById(Integer id) {
@@ -52,5 +61,14 @@ public class UserServiceImp implements UserService {
     }
 
 
-}
+
+        @Override
+        public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+            return userRepository.findByEmail(email)
+                    .orElseThrow(
+                            () -> new ResourceNotFountException(
+                                    String.format("User with email %s not found",email)));
+        }
+    }
+
 
